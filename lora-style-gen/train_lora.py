@@ -77,8 +77,8 @@ def load_model_and_tokenizer(base_model):
 
     # LoRA 配置
     lora_config = LoraConfig(
-        r=8,
-        lora_alpha=16,
+        r=6,
+        lora_alpha=8,
         target_modules=["q_proj", "v_proj"],   # 对 Qwen 非常适用
         lora_dropout=0.05,
         bias="none",
@@ -96,7 +96,8 @@ def load_model_and_tokenizer(base_model):
 
 def train():
     base_model = "Qwen/Qwen2-0.5B-Instruct"
-    train_file = "train.json"
+    #train_file = "train.json"
+    train_file = "xiaohongshu_200.jsonl"
     output_dir = "output_lora"
 
     model, tokenizer = load_model_and_tokenizer(base_model)
@@ -110,12 +111,13 @@ def train():
         gradient_accumulation_steps=4,
         warmup_steps=10,
         max_steps=200,   # 少量步骤即可跑通
-        learning_rate=1e-4,
+        learning_rate=4e-5,
         fp16=True,
         logging_steps=10,
         save_steps=100,
         save_total_limit=2,
         optim="adamw_torch",
+        max_grad_norm=1.0,
     )
 
     trainer = Trainer(
