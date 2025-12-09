@@ -189,7 +189,7 @@ def build_vectorstore():
     # ========== 步骤1：文档加载 ==========
     # 从文件系统加载文档，转换为 Document 对象列表
     # Document 对象包含 page_content（文本内容）和 metadata（元数据）
-    file_path = "data/韩波_简历_互联网相关业务版-08.docx"
+    file_path = "data/简历_互联网相关业务版-08.docx"
     docs = load_word_document(file_path)
     print(f"✅ 已加载文档，共 {len(docs)} 页")
 
